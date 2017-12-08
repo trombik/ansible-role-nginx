@@ -1,3 +1,7 @@
+## Release 1.2.1
+
+* bb2862f [bugfix] Update rubocop to the latest
+
 ## Release 1.2.0
 
 * 3524097 [feature] support FreeBSD 11.1 and OpenBSD 6.2 (#12)
