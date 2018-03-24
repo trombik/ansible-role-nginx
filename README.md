@@ -22,18 +22,18 @@ None
 | `nginx_conf_file` | path to `nginx.conf` | `{{ nginx_conf_dir }}/nginx.conf` |
 | `nginx_flags` | optional flags to command `nginx`. (not supported in RedHat because it does not provide a mechanism to pass one) | `""` |
 | `nginx_validate_enable` | when `yes` enable `nginx.conf` validation. note that all the path in all configuration files must be absolute. set to `no` if relative path must be used | `yes` |
-| `nginx_include_x509_certificate` | include and execute `reallyenglish.x509-certificate` during the play when `yes` (see below) | `no` |
+| `nginx_include_x509_certificate` | include and execute `trombik.x509-certificate` during the play when `yes` (see below) | `no` |
 | `nginx_config` | string of `nginx.conf` content | `""` |
 | `nginx_config_fragments` | list of optional configuration fragments in `nginx_conf_fragments_dir` (see below) | `[]` |
 
 ## `nginx_include_x509_certificate`
 
 When `yes`, this variable includes and execute
-[`reallyenglish.x509`](https://github.com/reallyenglish/ansible-role-x509-certificate)
+[`trombik.x509`](https://github.com/trombik/ansible-role-x509-certificate)
 during the play, which makes it possible to manage certificates without ugly
 hacks. This is only supported in `ansible` version _at least_ 2.2 and later.
 
-`reallyenglish.x509` must be listed in `requirements.yml` when `yes`. The role
+`trombik.x509` must be listed in `requirements.yml` when `yes`. The role
 is not automatically downloaded as a dependency because the role does NOT
 depend on it in `meta/main.yml`.
 
@@ -98,7 +98,7 @@ This variable is a list of dict. Keys and values are explained below.
 
 # Dependencies
 
-- `reallyenglish.x509-certificate` when `nginx_include_x509_certificate` is
+- `trombik.x509-certificate` when `nginx_include_x509_certificate` is
   true
 
 # Example Playbook
@@ -106,7 +106,7 @@ This variable is a list of dict. Keys and values are explained below.
 ```yaml
 - hosts: localhost
   roles:
-    - name: reallyenglish.redhat-repo
+    - name: trombik.redhat-repo
       when: ansible_os_family == 'RedHat'
     - ansible-role-nginx
   vars:
@@ -155,7 +155,7 @@ This variable is a list of dict. Keys and values are explained below.
 # License
 
 ```
-Copyright (c) 2017 Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
+Copyright (c) 2017 Tomoyuki Sakurai <y@trombik.org>
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -172,6 +172,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 # Author Information
 
-Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
+Tomoyuki Sakurai <y@trombik.org>
 
 This README was created by [qansible](https://github.com/trombik/qansible)

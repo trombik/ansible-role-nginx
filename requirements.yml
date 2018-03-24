@@ -1,4 +1,4 @@
 ---
 
-- name: reallyenglish.x509-certificate
-- name: reallyenglish.redhat-repo
+- name: trombik.x509-certificate
+- name: trombik.redhat-repo
