@@ -2,6 +2,6 @@
 
 # XXX this task should have been in `tasks/main.yml` but ansible older than 2.2
 # does not understand `include_role` and bails out.
-- name: Include x509-certificate
+- name: Include x509_certificate
   include_role:
-    name: trombik.x509-certificate
+    name: trombik.x509_certificate
