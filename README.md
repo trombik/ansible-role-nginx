@@ -106,7 +106,7 @@ This variable is a list of dict. Keys and values are explained below.
 ```yaml
 - hosts: localhost
   roles:
-    - name: trombik.redhat-repo
+    - name: trombik.redhat_repo
       when: ansible_os_family == 'RedHat'
     - ansible-role-nginx
   vars:

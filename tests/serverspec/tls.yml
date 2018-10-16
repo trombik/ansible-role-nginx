@@ -1,6 +1,6 @@
 - hosts: localhost
   roles:
-    - name: trombik.redhat-repo
+    - name: trombik.redhat_repo
       when: ansible_os_family == 'RedHat'
     - trombik.x509_certificate
     - ansible-role-nginx
