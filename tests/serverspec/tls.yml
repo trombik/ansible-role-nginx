@@ -2,7 +2,7 @@
   roles:
     - name: trombik.redhat-repo
       when: ansible_os_family == 'RedHat'
-    - trombik.x509-certificate
+    - trombik.x509_certificate
     - ansible-role-nginx
   vars:
     www_root_dir: "{% if ansible_os_family == 'FreeBSD' %}/usr/local/www/nginx{% elif ansible_os_family == 'OpenBSD' %}/var/www/htdocs{% elif ansible_os_family == 'Debian' %}/var/www/html{% elif ansible_os_family == 'RedHat' %}/usr/share/nginx/html{% endif %}"
