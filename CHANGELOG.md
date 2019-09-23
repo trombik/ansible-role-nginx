@@ -1,3 +1,7 @@
+## Release 1.2.3
+
+* ac09832 QA
+
 ## Release 1.2.2
 
 * f878463 bugfix: openssl in FreeBSD 12.0 outputs in different format
