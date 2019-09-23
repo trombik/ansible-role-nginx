@@ -46,7 +46,7 @@
     src: fragment.j2
     dest: "{{ nginx_conf_fragments_dir }}/{{ item.name }}"
     # XXX you cannot validate each fragment
-    #validate: echo %s
+    # validate: echo %s
   with_items: "{{ nginx_config_fragments }}"
   when:
     - '"state" in item'
