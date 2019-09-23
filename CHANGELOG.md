@@ -1,3 +1,7 @@
+## Release 1.2.4
+
+* aeded38 bugfix: restart the service upon changes in configuration
+
 ## Release 1.2.3
 
 * ac09832 QA
