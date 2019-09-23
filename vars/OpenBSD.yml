@@ -1,3 +1,4 @@
+---
 __nginx_user: www
 __nginx_group: www
 __nginx_package: nginx--
