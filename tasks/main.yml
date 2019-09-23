@@ -51,6 +51,7 @@
   when:
     - '"state" in item'
     - "item.state == 'present'"
+  notify: Restart nginx
 
 - name: Remove nginx_conf_fragments
   file:
@@ -60,7 +61,6 @@
   when:
     - '"state" in item'
     - "item.state == 'absent'"
-
   notify: Restart nginx
 
 - name: Create nginx.conf
