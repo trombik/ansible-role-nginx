@@ -123,7 +123,13 @@ ports.each do |p|
 end
 
 describe command("echo | openssl s_client -connect 127.0.0.1:443 -showcerts") do
-  its(:stdout) { should match(/#{Regexp.escape("issuer=/C=AU/ST=Some-State/O=Internet Widgits Pty Ltd/CN=foo.example.org")}/) }
+  if os[:family] == "freebsd"
+    # newer openssl
+    # issuer=C = AU, ST = Some-State, O = Internet Widgits Pty Ltd, CN = foo.example.org
+    its(:stdout) { should match(/#{Regexp.escape("issuer=C = AU, ST = Some-State, O = Internet Widgits Pty Ltd, CN = foo.example.org")}/) }
+  else
+    its(:stdout) { should match(/#{Regexp.escape("issuer=/C=AU/ST=Some-State/O=Internet Widgits Pty Ltd/CN=foo.example.org")}/) }
+  end
   its(:stderr) { should match(/verify error:num=18:self signed certificate/) }
   its(:exit_status) { should eq 0 }
 end
