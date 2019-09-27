@@ -1,5 +1,15 @@
 ---
 
+- name: Install nginx_extra_packages
+  apt:
+    name: "{{ nginx_extra_packages }}"
+    state: present
+
+- name: install nginx
+  apt:
+    name: "{{ nginx_package }}"
+    state: present
+
 - name: Install nginx
   apt:
     name: "{{ nginx_package }}"
