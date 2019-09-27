@@ -1,5 +1,10 @@
 ---
 
+- name: Install nginx_extra_packages
+  pkgng:
+    name: "{{ nginx_extra_packages }}"
+    state: present
+
 - name: Install nginx
   pkgng:
     name: "{{ nginx_package }}"

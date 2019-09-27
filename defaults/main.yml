@@ -6,6 +6,7 @@ nginx_access_log_file: "{{ nginx_log_dir }}/access.log"
 nginx_error_log_file: "{{ nginx_log_dir }}/error.log"
 nginx_service: nginx
 nginx_package: "{{ __nginx_package }}"
+nginx_extra_packages: []
 nginx_conf_dir: "{{ __nginx_conf_dir }}"
 nginx_conf_fragments_dir: "{{ nginx_conf_dir }}/conf.d"
 nginx_conf_file: "{{ nginx_conf_dir }}/nginx.conf"

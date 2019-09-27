@@ -40,6 +40,14 @@
       - name: foo.conf
         config: "# FOO"
         state: present
+    nginx_extra_packages_by_os:
+      FreeBSD:
+        - security/py-certbot-nginx
+      OpenBSD: []
+      Debian:
+        - nginx-extras
+      RedHat: []
+    nginx_extra_packages: "{{ nginx_extra_packages_by_os[ansible_os_family] }}"
     redhat_repo:
       epel:
         mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version }}&arch={{ ansible_architecture }}"

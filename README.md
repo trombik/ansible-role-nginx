@@ -17,6 +17,7 @@ None
 | `nginx_error_log_file` | path to `error.log` | `{{ nginx_log_dir }}/error.log` |
 | `nginx_service` | service name of `nginx` | `nginx` |
 | `nginx_package` | package name of `nginx` | `{{ __nginx_package }}` |
+| `nginx_extra_packages` | a list extra packages to install | `[]` |
 | `nginx_conf_dir` | path to configuration directory | `{{ __nginx_conf_dir }}` |
 | `nginx_conf_fragments_dir` | path to optional configuration fragment directory | `{{ nginx_conf_dir }}/conf.d` |
 | `nginx_conf_file` | path to `nginx.conf` | `{{ nginx_conf_dir }}/nginx.conf` |
@@ -104,6 +105,7 @@ This variable is a list of dict. Keys and values are explained below.
 # Example Playbook
 
 ```yaml
+---
 - hosts: localhost
   roles:
     - name: trombik.redhat_repo
@@ -145,6 +147,14 @@ This variable is a list of dict. Keys and values are explained below.
       - name: foo.conf
         config: "# FOO"
         state: present
+    nginx_extra_packages_by_os:
+      FreeBSD:
+        - security/py-certbot-nginx
+      OpenBSD: []
+      Debian:
+        - nginx-extras
+      RedHat: []
+    nginx_extra_packages: "{{ nginx_extra_packages_by_os[ansible_os_family] }}"
     redhat_repo:
       epel:
         mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version }}&arch={{ ansible_architecture }}"

@@ -13,12 +13,14 @@ default_group = "root"
 log_owner = ""
 log_group = ""
 log_mode = 644
+extra_packages = []
 
 case os[:family]
 when "ubuntu"
   log_owner = user
   log_group = "adm"
   log_mode = 640
+  extra_packages = ["nginx-extras"]
 when "redhat"
   user = "nginx"
   group = "nginx"
@@ -39,6 +41,7 @@ when "freebsd"
   default_group = "wheel"
   log_owner = default_user
   log_group = group
+  extra_packages = ["security/py-certbot-nginx"]
 end
 config = "#{config_dir}/nginx.conf"
 
@@ -70,6 +73,12 @@ when "freebsd"
     it { should be_owned_by default_user }
     it { should be_grouped_into default_group }
     its(:content) { should match(/^nginx_flags="-q"$/) }
+  end
+end
+
+extra_packages.each do |p|
+  describe package p do
+    it { should be_installed }
   end
 end
 
