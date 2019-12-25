@@ -10,6 +10,11 @@
     name: "{{ nginx_package }}"
     state: present
 
+- name: Install nginx_passlib_package
+  pkgng:
+    name: "{{ nginx_passlib_package }}"
+    state: present
+
 - name: Enable nginx_service
   service:
     name: "{{ nginx_service }}"

@@ -130,3 +130,30 @@ ports.each do |p|
     it { should be_listening }
   end
 end
+
+describe file "/tmp/my_htpasswd" do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by "root" }
+  it { should be_grouped_into group }
+  it { should be_mode 640 }
+  its(:content) { should match(/^foo:/) }
+end
+
+describe file "/tmp/another_htpaswd" do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by "root" }
+  it { should be_grouped_into group }
+  it { should be_mode 640 }
+  its(:content) { should match(/^bar:/) }
+end
+
+describe file "/tmp/my_htpasswd" do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by "root" }
+  it { should be_grouped_into group }
+  it { should be_mode 640 }
+  its(:content) { should match(/^buz:/) }
+end

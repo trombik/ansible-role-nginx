@@ -53,3 +53,24 @@
         mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version }}&arch={{ ansible_architecture }}"
         gpgcheck: yes
         enabled: yes
+
+    nginx_htpasswd_users:
+      - path: /tmp/my_htpasswd
+        owner: root
+        group: "{{ nginx_group }}"
+        create: yes
+        mode: "0640"
+        name: foo
+        password: password
+        state: present
+      - path: /tmp/another_htpaswd
+        group: "{{ nginx_group }}"
+        mode: "0640"
+        name: bar
+        password: password
+        state: present
+      - path: /tmp/my_htpasswd
+        group: "{{ nginx_group }}"
+        name: buz
+        password: password
+        state: present

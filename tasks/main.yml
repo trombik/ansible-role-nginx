@@ -7,10 +7,28 @@
 
 - include: "x509.yml"
   when:
-    - ansible_version.full | version_compare('2.2', '>=')
     - nginx_include_x509_certificate
 
 - include: "configure-{{ ansible_os_family }}.yml"
+
+- name: Create or remove nginx_htpasswd_users
+  htpasswd:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    create: "{{ item.create | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password | default(omit) }}"
+    state: "{{ item.state }}"
+    attributes: "{{ item.attributes | default(omit) }}"
+    crypt_scheme: "{{ item.crypt_scheme | default(omit) }}"
+    selevel: "{{ item.selevel | default(omit) }}"
+    serole: "{{ item.serole | default(omit) }}"
+    setype: "{{ item.setype | default(omit) }}"
+    seuser: "{{ item.seuser | default(omit) }}"
+    unsafe_writes: "{{ item.unsafe_writes | default(omit) }}"
+  with_items: "{{ nginx_htpasswd_users }}"
 
 - name: Create log directory
   file:

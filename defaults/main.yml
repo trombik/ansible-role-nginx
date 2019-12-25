@@ -16,3 +16,5 @@ nginx_include_x509_certificate: no
 
 nginx_config: ""
 nginx_config_fragments: []
+nginx_passlib_package: "{{ __nginx_passlib_package }}"
+nginx_htpasswd_users: []
