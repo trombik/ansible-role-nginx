@@ -44,16 +44,16 @@ platforms:
       extra_vars:
         ansible_python_interpreter: '/usr/local/bin/python3'
 
-  - name: openbsd-6.4-amd64
+  - name: openbsd-6.6-amd64
     driver:
-      box: trombik/ansible-openbsd-6.4-amd64
+      box: trombik/ansible-openbsd-6.6-amd64
       box_check_update: false
     driver_config:
       ssh:
         shell: '/bin/sh'
     provisioner:
       extra_vars:
-        ansible_python_interpreter: '/usr/local/bin/python'
+        ansible_python_interpreter: '/usr/local/bin/python3'
 
   - name: ubuntu-18.04-amd64
     driver:
@@ -74,24 +74,10 @@ suites:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/default_spec.rb
 
-  # XXX eventually, this suite should be replaced with x509
-  - name: tls
-    provisioner:
-      name: ansible_playbook
-      playbook: tests/serverspec/tls.yml
-    verifier:
-      name: shell
-      command: rspec -c -f d -I tests/serverspec tests/serverspec/tls_spec.rb
-    includes:
-      - openbsd-6.4-amd64
-      - openbsd-6.5-amd64
   - name: x509
     provisioner:
       name: ansible_playbook
       playbook: tests/serverspec/x509.yml
     verifier:
       name: shell
-      command: rspec -c -f d -I tests/serverspec tests/serverspec/tls_spec.rb
-    excludes:
-      - openbsd-6.4-amd64
-      - openbsd-6.5-amd64
+      command: rspec -c -f d -I tests/serverspec tests/serverspec/x509_spec.rb

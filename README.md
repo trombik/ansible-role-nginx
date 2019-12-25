@@ -25,6 +25,14 @@ None
 | `nginx_include_x509_certificate` | include and execute `trombik.x509_certificate` during the play when `yes` (see below) | `no` |
 | `nginx_config` | string of `nginx.conf` content | `""` |
 | `nginx_config_fragments` | list of optional configuration fragments in `nginx_conf_fragments_dir` (see below) | `[]` |
+| `nginx_passlib_package` | package name of python `passlib` | `{{ __nginx_passlib_package }}` |
+| `nginx_htpasswd_users` | | `[]` |
+
+## `nginx_htpasswd_users`
+
+This is a list of dict. Each item is passed to [`htpasswd`]
+(https://docs.ansible.com/ansible/latest/modules/htpasswd_module.html) ansible
+module. See the documentation for accepted keys and values.
 
 ## `nginx_include_x509_certificate`
 
@@ -65,6 +73,7 @@ This variable is a list of dict. Keys and values are explained below.
 | `__nginx_package` | `nginx` |
 | `__nginx_log_dir` | `/var/log/nginx` |
 | `__nginx_conf_dir` | `/etc/nginx` |
+| `__nginx_passlib_package` | `python-passlib` |
 
 ## FreeBSD
 
@@ -75,6 +84,7 @@ This variable is a list of dict. Keys and values are explained below.
 | `__nginx_package` | `nginx` |
 | `__nginx_log_dir` | `/var/log/nginx` |
 | `__nginx_conf_dir` | `/usr/local/etc/nginx` |
+| `__nginx_passlib_package` | `security/py-passlib` |
 
 ## OpenBSD
 
@@ -85,6 +95,7 @@ This variable is a list of dict. Keys and values are explained below.
 | `__nginx_package` | `nginx--` |
 | `__nginx_log_dir` | `/var/www/logs` |
 | `__nginx_conf_dir` | `/etc/nginx` |
+| `__nginx_passlib_package` | `py-passlib` |
 
 ## RedHat
 
@@ -95,6 +106,7 @@ This variable is a list of dict. Keys and values are explained below.
 | `__nginx_package` | `nginx` |
 | `__nginx_log_dir` | `/var/log/nginx` |
 | `__nginx_conf_dir` | `/etc/nginx` |
+| `__nginx_passlib_package` | `python-passlib` |
 
 # Dependencies
 
@@ -104,6 +116,7 @@ This variable is a list of dict. Keys and values are explained below.
 # Example Playbook
 
 ```yaml
+---
 - hosts: localhost
   roles:
     - name: trombik.redhat_repo
@@ -150,6 +163,27 @@ This variable is a list of dict. Keys and values are explained below.
         mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version }}&arch={{ ansible_architecture }}"
         gpgcheck: yes
         enabled: yes
+
+    nginx_htpasswd_users:
+      - path: /tmp/my_htpasswd
+        owner: root
+        group: "{{ nginx_group }}"
+        create: yes
+        mode: "0640"
+        name: foo
+        password: password
+        state: present
+      - path: /tmp/another_htpaswd
+        group: "{{ nginx_group }}"
+        mode: "0640"
+        name: bar
+        password: password
+        state: present
+      - path: /tmp/my_htpasswd
+        group: "{{ nginx_group }}"
+        name: buz
+        password: password
+        state: present
 ```
 
 # License

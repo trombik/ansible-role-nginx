@@ -4,3 +4,8 @@
   openbsd_pkg:
     name: "{{ nginx_package }}"
     state: present
+
+- name: Install nginx_passlib_package
+  openbsd_pkg:
+    name: "{{ nginx_passlib_package }}"
+    state: present
