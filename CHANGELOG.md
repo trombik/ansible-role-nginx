@@ -1,3 +1,13 @@
+## Release 1.3.0
+
+* e4e7fb3 feature: support nginx_extra_packages
+* 03e31cb bugfix: wrong name
+* d1fd359 bugfix: QA
+* 26c36b7 bugfix: QA
+* 0cf966a bugfix: update gems
+* aa2c230 feature: support htpasswd
+* 4d0b286 bugfix: QA
+
 ## Release 1.2.4
 
 * aeded38 bugfix: restart the service upon changes in configuration
