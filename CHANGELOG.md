@@ -1,3 +1,7 @@
+## Release 1.3.1
+
+* 619e0a1 bugfix: update gems, sync .travis.yml
+
 ## Release 1.3.0
 
 * e4e7fb3 feature: support nginx_extra_packages
