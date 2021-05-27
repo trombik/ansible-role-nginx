@@ -1,3 +1,8 @@
+## Release 1.3.3
+
+* 0c77f13 bugfix: fix test case for OpenBSD 6.8
+* a6551ef bugfix: update box versions
+
 ## Release 1.3.2
 
 * 00fc263 bugfix: update boxes, and a TLS test
