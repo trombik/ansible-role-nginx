@@ -1,5 +1,12 @@
 ---
 - hosts: localhost
+  pre_tasks:
+    # XXX remove this when Ubutu VMs are updated
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+      changed_when: false
+      when: ansible_os_family == 'Debian'
   roles:
     - name: trombik.redhat_repo
       when: ansible_os_family == 'RedHat'
