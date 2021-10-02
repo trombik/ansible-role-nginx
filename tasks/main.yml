@@ -1,18 +1,22 @@
 ---
 # tasks file for ansible-role-nginx
 
-- include_vars: "{{ ansible_os_family }}.yml"
+- name: "Include {{ ansible_os_family }}.yml"
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- include: "install-{{ ansible_os_family }}.yml"
+- name: "Include install-{{ ansible_os_family }}.yml"
+  include: "install-{{ ansible_os_family }}.yml"
 
-- include: "x509.yml"
+- name: "Include x509.yml"
+  include: "x509.yml"
   when:
     - nginx_include_x509_certificate
 
-- include: "configure-{{ ansible_os_family }}.yml"
+- name: "Include configure-{{ ansible_os_family }}.yml"
+  include: "configure-{{ ansible_os_family }}.yml"
 
 - name: Create or remove nginx_htpasswd_users
-  htpasswd:
+  community.general.htpasswd:
     path: "{{ item.path }}"
     owner: "{{ item.owner | default(omit) }}"
     group: "{{ item.group | default(omit) }}"
@@ -31,7 +35,7 @@
   with_items: "{{ nginx_htpasswd_users }}"
 
 - name: Create log directory
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_log_dir }}"
     mode: 0755
     owner: "{{ nginx_user }}"
@@ -40,17 +44,17 @@
   notify: Restart nginx
 
 - name: Create nginx_conf_dir
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_conf_dir }}"
     state: directory
 
 - name: Create nginx_conf_fragments_dir
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_conf_fragments_dir }}"
     state: directory
 
 - name: Assert that nginx_config_fragments is valid
-  assert:
+  ansible.builtin.assert:
     that:
       - "'name' in item"
       - item.name | length > 0
@@ -60,7 +64,7 @@
   with_items: "{{ nginx_config_fragments }}"
 
 - name: Create nginx_conf_fragments
-  template:
+  ansible.builtin.template:
     src: fragment.j2
     dest: "{{ nginx_conf_fragments_dir }}/{{ item.name }}"
     # XXX you cannot validate each fragment
@@ -72,7 +76,7 @@
   notify: Restart nginx
 
 - name: Remove nginx_conf_fragments
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_conf_fragments_dir }}/{{ item.name }}"
     state: absent
   with_items: "{{ nginx_config_fragments }}"
@@ -82,13 +86,13 @@
   notify: Restart nginx
 
 - name: Create nginx.conf
-  template:
+  ansible.builtin.template:
     src: nginx.conf.j2
     dest: "{{ nginx_conf_file }}"
     validate: "{% if nginx_validate_enable %}nginx -c %s -t{% endif %}"
   notify: Restart nginx
 
 - name: Start nginx
-  service:
+  ansible.builtin.service:
     name: "{{ nginx_service }}"
     state: started

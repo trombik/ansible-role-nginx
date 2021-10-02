@@ -1,7 +1,7 @@
 ---
 
 - name: Create /etc/rc.conf.d/nginx
-  template:
+  ansible.builtin.template:
     src: FreeBSD.rc.d.j2
     dest: /etc/rc.conf.d/nginx
     validate: sh -n %s

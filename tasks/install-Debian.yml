@@ -1,23 +1,23 @@
 ---
 
 - name: Install nginx_extra_packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ nginx_extra_packages }}"
     policy_rc_d: 101
     state: present
 
 - name: install nginx
-  apt:
+  ansible.builtin.apt:
     name: "{{ nginx_package }}"
     policy_rc_d: 101
     state: present
 
 - name: Install passlib for htpasswd management
-  apt:
+  ansible.builtin.apt:
     name: "{{ nginx_passlib_package }}"
     state: present
 
 - name: Enable nginx_service
-  service:
+  ansible.builtin.service:
     name: "{{ nginx_service }}"
     enabled: yes
