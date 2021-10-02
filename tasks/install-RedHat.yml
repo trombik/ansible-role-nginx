@@ -1,21 +1,21 @@
 ---
 
 - name: Install nginx_extra_packages
-  yum:
+  ansible.builtin.yum:
     name: "{{ nginx_extra_packages }}"
     state: present
 
 - name: Install nginx
-  yum:
+  ansible.builtin.yum:
     name: "{{ nginx_package }}"
     state: present
 
 - name: Install passlib for htpasswd management
-  yum:
+  ansible.builtin.yum:
     name: "{{ nginx_passlib_package }}"
     state: present
 
 - name: Enable nginx_service
-  service:
+  ansible.builtin.service:
     name: "{{ nginx_service }}"
     enabled: yes
