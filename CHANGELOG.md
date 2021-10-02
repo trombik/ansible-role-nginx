@@ -1,3 +1,12 @@
+## Release 1.3.4
+
+* 5aac162 ci: add workaround to x509
+* 5d14392 bugfix: use package name instead of origin
+* 921ba02 bugfix: `ansible.builtin`-fy
+* ce04b57 bugfix: update kitchen-ansible for collections support
+* e7a8ca4 bugfix: prevent service from running on Ubuntu
+* f0be610 bugfix: QA
+
 ## Release 1.3.3
 
 * 0c77f13 bugfix: fix test case for OpenBSD 6.8
