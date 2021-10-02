@@ -105,8 +105,6 @@ GEM
     nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    nokogiri (1.11.7-x86_64-linux)
-      racc (~> 1.4)
     nori (2.6.0)
     parallel (1.20.1)
     parser (2.7.2.0)
@@ -230,7 +228,7 @@ PLATFORMS
 
 DEPENDENCIES
   infrataster (~> 0.3.2)!
-  kitchen-ansible
+  kitchen-ansible (>= 0.56.0)
   kitchen-sync (~> 2.1.1)!
   kitchen-vagrant
   kitchen-verifier-serverspec
