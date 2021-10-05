@@ -16,7 +16,7 @@ log_mode = 644
 extra_packages = []
 
 case os[:family]
-when "ubuntu"
+when "ubuntu", "devuan"
   log_owner = user
   log_group = "adm"
   log_mode = 640
@@ -50,7 +50,7 @@ describe package(package) do
 end
 
 case os[:family]
-when "ubuntu"
+when "ubuntu", "devuan"
   describe file("/etc/default/nginx") do
     it { should exist }
     it { should be_file }
@@ -98,7 +98,7 @@ describe file(config) do
   it { should be_owned_by default_user }
   it { should be_grouped_into default_group }
   its(:content) { should match(%r{^\s+include\s+#{config_dir}/mime\.types;$}) }
-  if os[:family] == "ubuntu" || os[:family] == "redhat"
+  if os[:family] == "ubuntu" || os[:family] == "redhat" || os[:family] == "devuan"
     its(:content) { should match(/^user #{user};$/) }
     its(:content) { should match(/^pid #{Regexp.escape("/run/nginx.pid")};$/) }
   end
