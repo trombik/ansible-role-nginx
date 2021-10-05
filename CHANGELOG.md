@@ -1,3 +1,8 @@
+## Release 1.3.5
+
+* 670d72f bugfix: update gems
+* 5909591 bugfix: support Devuan
+
 ## Release 1.3.4
 
 * 5aac162 ci: add workaround to x509
