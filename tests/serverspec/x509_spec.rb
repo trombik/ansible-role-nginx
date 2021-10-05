@@ -15,7 +15,7 @@ log_group = ""
 log_mode = 644
 
 case os[:family]
-when "ubuntu"
+when "ubuntu", "devuan"
   log_owner = user
   log_group = "adm"
   log_mode = 640
@@ -47,7 +47,7 @@ describe package(package) do
 end
 
 case os[:family]
-when "ubuntu"
+when "ubuntu", "devuan"
   describe file("/etc/default/nginx") do
     it { should exist }
     it { should be_file }
@@ -89,7 +89,7 @@ describe file(config) do
   it { should be_owned_by default_user }
   it { should be_grouped_into default_group }
   its(:content) { should match(%r{^\s+include\s+#{config_dir}/mime\.types;$}) }
-  if os[:family] == "ubuntu" || os[:family] == "redhat"
+  if os[:family] == "ubuntu" || os[:family] == "redhat" || os[:family] == "devuan"
     its(:content) { should match(/^user #{user};$/) }
     its(:content) { should match(/^pid #{Regexp.escape("/run/nginx.pid")};$/) }
   end
@@ -124,7 +124,7 @@ end
 
 describe command("echo | openssl s_client -connect 127.0.0.1:443 -showcerts") do
   case os[:family]
-  when "freebsd", "ubuntu"
+  when "freebsd", "ubuntu", "devuan"
     # newer openssl
     # issuer=C = AU, ST = Some-State, O = Internet Widgits Pty Ltd, CN = foo.example.org
     its(:stdout) { should match(/#{Regexp.escape("issuer=C = AU, ST = Some-State, O = Internet Widgits Pty Ltd, CN = foo.example.org")}/) }
