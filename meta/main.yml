@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: nginx
   author: Tomoyuki Sakurai
   description: Configures nginx
   company: N/A

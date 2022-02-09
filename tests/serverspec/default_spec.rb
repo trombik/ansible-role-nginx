@@ -49,6 +49,11 @@ describe package(package) do
   it { should be_installed }
 end
 
+describe file config_dir do
+  it { should exist }
+  it { should be_directory }
+  it { should be_mode 755 }
+end
 case os[:family]
 when "ubuntu", "devuan"
   describe file("/etc/default/nginx") do
