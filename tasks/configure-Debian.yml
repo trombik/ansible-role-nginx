@@ -6,3 +6,4 @@
     dest: /etc/default/nginx
     validate: sh -n %s
     backup: yes
+    mode: "0644"
