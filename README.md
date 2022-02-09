@@ -119,9 +119,16 @@ This variable is a list of dict. Keys and values are explained below.
 ```yaml
 ---
 - hosts: localhost
+  pre_tasks:
+    # XXX remove this when Ubutu VMs are updated
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+      changed_when: false
+      when: ansible_os_family == 'Debian'
   roles:
     - name: trombik.redhat_repo
-      when: ansible_os_family == 'RedHat'
+      when: ansible_distribution == 'CentOS'
     - ansible-role-nginx
   vars:
     www_root_dir: "{% if ansible_os_family == 'FreeBSD' %}/usr/local/www/nginx{% elif ansible_os_family == 'OpenBSD' %}/var/www/htdocs{% elif ansible_os_family == 'Debian' %}/var/www/html{% elif ansible_os_family == 'RedHat' %}/usr/share/nginx/html{% endif %}"

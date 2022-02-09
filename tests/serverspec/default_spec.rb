@@ -21,7 +21,7 @@ when "ubuntu", "devuan"
   log_group = "adm"
   log_mode = 640
   extra_packages = ["nginx-extras"]
-when "redhat"
+when "redhat", "fedora"
   user = "nginx"
   group = "nginx"
   log_owner = default_user
@@ -98,7 +98,7 @@ describe file(config) do
   it { should be_owned_by default_user }
   it { should be_grouped_into default_group }
   its(:content) { should match(%r{^\s+include\s+#{config_dir}/mime\.types;$}) }
-  if os[:family] == "ubuntu" || os[:family] == "redhat" || os[:family] == "devuan"
+  if os[:family] == "ubuntu" || os[:family] == "redhat" || os[:family] == "fedora" || os[:family] == "devuan"
     its(:content) { should match(/^user #{user};$/) }
     its(:content) { should match(/^pid #{Regexp.escape("/run/nginx.pid")};$/) }
   end
