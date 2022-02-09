@@ -1,3 +1,11 @@
+## Release 1.4.0
+
+* f0385c3 bugfix: QA
+* 2ea064b ci: add ansible-lint to CI
+* b599c63 feat: support Fedora
+* 719228c ci: remove ansible_vault_password_file
+* 40c2b97 ci: add kitchen workflow to CI
+
 ## Release 1.3.5
 
 * 670d72f bugfix: update gems
